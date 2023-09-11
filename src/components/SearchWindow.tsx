@@ -1,13 +1,13 @@
+import useInputText from "@/hooks/useInputText";
 import { Search } from "@mui/icons-material";
 import { Box, InputAdornment, TextField } from "@mui/material";
-import useInputText from "./useSearchWindow";
 import { FC } from "react";
 
 type Props = {
-	placeholder: string
-}
-const SearchWindow:FC<Props> = (props) => {
-	const {placeholder}=props
+  placeholder: string;
+};
+const SearchWindow: FC<Props> = (props) => {
+  const { placeholder } = props;
   const { value, handleChange } = useInputText();
   return (
     <Box sx={{ display: "flex", paddingX: 1 }}>

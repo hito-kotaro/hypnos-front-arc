@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 const useImage = () => {
-	const [image, setImage]=useState({})
-	const [imageUrl, setImageUrl] = useState<string>()
+  const [image, setImage] = useState({});
+  const [imageUrl, setImageUrl] = useState<string>();
 
   const uploadToClient = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -13,7 +13,12 @@ const useImage = () => {
     }
   };
 
-	return {image, imageUrl, uploadToClient}
+  const clearImage = () => {
+    setImage({});
+		setImageUrl('')
+  };
+
+  return { image, imageUrl, uploadToClient, clearImage };
 };
 
 export default useImage;

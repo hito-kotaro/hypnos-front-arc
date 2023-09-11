@@ -1,18 +1,26 @@
 import { Box, Button, IconButton, Modal, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { FC } from "react";
+import React, { FC, ReactElement } from "react";
+import { ExtendItemType, RakutenFetchedItemType } from "@/types/itemType";
 import { ItemListItem } from "./ItemListItem";
-import { items } from "@/mockData/items";
-import { itemType } from "@/types/itemType";
 
 type Props = {
   handleModalClose: () => void;
+  handleModalOpen: () => void;
   isModalOpen: boolean;
+  handleClickItem: (item: RakutenFetchedItemType) => void;
+  //children: ReactElement;
+  rakutenItems: RakutenFetchedItemType[];
 };
-export const ItemRegisterModal: FC<Props> = (props) => {
-  const { handleModalClose, isModalOpen } = props;
+
+export const ItemRegisterModal: FC<Props> = React.memo((props) => {
+  const { handleModalClose, isModalOpen, handleClickItem, rakutenItems } =
+    props;
+
+  console.log("小コンポーネントレンダリング");
+  console.log(props);
   return (
-    <Modal open={isModalOpen} onClose={handleModalClose}>
+    <Modal open={isModalOpen}>
       <Box
         sx={{
           position: "absolute",
@@ -36,30 +44,18 @@ export const ItemRegisterModal: FC<Props> = (props) => {
           あなたがおすすめするアイテムをみんなが購入できるようにURLをシェアしてくれますか？
         </Typography>
 
-        <Box sx={{ marginTop: 2 }}>
+        {rakutenItems.map((item: RakutenFetchedItemType) => (
           <Button
-            variant="text"
-            color="secondary"
-            sx={{
-              padding: 0,
-              borderBottom: 1,
-              borderRadius: 0,
-              marginBottom: 1,
-            }}
+            key={item.itemCode}
+            fullWidth
+            onClick={() => handleClickItem(item)}
           >
-            アイテムの登録をスキップ
+            <Box sx={{ width: "100%" }}>
+              <ItemListItem item={item} />
+            </Box>
           </Button>
-          <Typography gutterBottom variant="caption" component="p">
-            商品が購入できるURLは登録されずにあなたが入力したアイテム名のみ表示されます。
-          </Typography>
-        </Box>
-
-        {items.map((item: itemType) => (
-          <Box key={item.id} sx={{ marginBottom: 1 }}>
-            <ItemListItem item={item} />
-          </Box>
         ))}
       </Box>
     </Modal>
   );
-};
+});

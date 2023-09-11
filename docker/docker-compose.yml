@@ -1,5 +1,20 @@
 version: '3'
 services:
+  mock:
+    image: node:18
+    container_name: json-api
+    tty: true
+    ports:
+      - '3001:3000'
+    networks:
+      - hypnos-nw
+    volumes:
+      - type: bind
+        source: ./json-api/
+        target: /data
+    working_dir: /data
+    command: bash -c "npm install -g json-server; npx json-server --watch db.json -p 3000 --host 0.0.0.0"
+
   service:
     image: node:18
     container_name: hypnos-front

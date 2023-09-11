@@ -1,39 +1,11 @@
-import { itemType } from "@/types/itemType";
+import { RakutenFetchedItemType } from "@/types/itemType";
 
-export const items: itemType[] = [
+export const rakutenItems: RakutenFetchedItemType[] = [
   {
-    id: 1,
-    name: "makura",
-    description: "makura",
-    imageUrl: "sample.png",
-    price: 19000,
-  },
-  {
-    id: 2,
-    name: "makura",
-    description: "makura",
-    imageUrl: "sample.png",
-    price: 19000,
-  },
-  {
-    id: 3,
-    name: "makura",
-    description: "makura",
-    imageUrl: "sample.png",
-    price: 19000,
-  },
-  {
-    id: 4,
-    name: "makura",
-    description: "makura",
-    imageUrl: "sample.png",
-    price: 19000,
-  },
-  {
-    id: 5,
-    name: "makura",
-    description: "makura",
-    imageUrl: "sample.png",
-    price: 19000,
+    itemCode: "1",
+    name: "枕",
+    description: "",
+    imageUrl: "/sample.png",
+    price: 100,
   },
 ];

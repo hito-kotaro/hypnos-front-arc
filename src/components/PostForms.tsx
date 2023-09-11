@@ -1,36 +1,57 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import Image from "next/image";
-import useInputText from "./useSearchWindow";
-import { FC, useRef, useState } from "react";
+import { FC, ReactElement, useRef } from "react";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import useImage from "./useImage";
-import { usePostRequest } from "./usePostRequest";
+import useImage from "@/hooks/useImage";
+import { usePostRequest } from "@/hooks/usePostRequest";
+import { useInputText, useInputTextType } from "@/hooks/useInputText";
+import { useRakutenApi } from "@/axios/useRakutenApi";
 
 type Props = {
   handleModalOpen: () => void;
+  itemInput: useInputTextType;
 };
-export const PostForms: FC<Props> = (props) => {
-  const { handleModalOpen } = props;
 
+export const PostForms: FC<Props> = (props) => {
+  const { handleModalOpen, itemInput } = props;
   const handleNameInput = useInputText();
   const titleInput = useInputText();
   const bodyInput = useInputText();
-  const itemInput = useInputText();
   const inputRef = useRef(null);
-
-  const { imageUrl, uploadToClient } = useImage();
+  const { imageUrl, uploadToClient, clearImage } = useImage();
   const { newPost } = usePostRequest();
+	const {isLoading,  setIsLoading, instance} = useRakutenApi()
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleNewPost = () => {
+    handleNameInput.clearValue();
+    titleInput.clearValue();
+    bodyInput.clearValue();
+    clearImage();
+    newPost();
+  };
+
+  const wrapHandleModalOpen = () => {
+		setIsLoading(true)
+    console.log("fetchData");
+
+    console.log("open modal");
     handleModalOpen();
+    console.log("loading data");
+    console.log("set state");
   };
 
   return (
     <>
       <Box>
         <Button
-          onClick={newPost}
+          disabled={
+            handleNameInput.value === "" ||
+            titleInput.value === "" ||
+            bodyInput.value === ""
+              ? true
+              : false
+          }
+          onClick={handleNewPost}
           variant="contained"
           color="secondary"
           fullWidth
@@ -83,7 +104,12 @@ export const PostForms: FC<Props> = (props) => {
 
         <Box sx={{ display: "flex", justifyContent: "center", marginTop: 2 }}>
           {imageUrl ? (
-            <Image src={imageUrl} alt="test" width="320" height="240" />
+            <Box>
+              <Button onClick={clearImage} variant="contained" color="error">
+                画像を削除
+              </Button>
+              <Image src={imageUrl} alt="test" width="320" height="240" />
+            </Box>
           ) : (
             ""
           )}
@@ -96,16 +122,24 @@ export const PostForms: FC<Props> = (props) => {
           >
             アイテムを登録
           </Typography>
-          <form onSubmit={handleSubmit}>
-            <TextField
-              value={itemInput.value}
-              onChange={itemInput.handleChange}
-              focused={false}
-              size="small"
-              placeholder="アイテム名を入力"
-              fullWidth
-            />
-          </form>
+          <TextField
+            value={itemInput.value}
+            onChange={itemInput.handleChange}
+            focused={false}
+            size="small"
+            placeholder="アイテム名を入力"
+            fullWidth
+            sx={{ marginBottom: 1 }}
+          />
+          <Button
+            disabled={itemInput.value === "" ? true : false}
+            onClick={wrapHandleModalOpen}
+            variant="contained"
+            color="secondary"
+            fullWidth
+          >
+            アイテムを探す
+          </Button>
         </Box>
       </Box>
     </>
