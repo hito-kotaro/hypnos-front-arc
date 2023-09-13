@@ -1,25 +1,28 @@
-import { StringLiteralLike } from "typescript";
-
 export type BaseItemType = {
-  name: string;
-  description: string;
-  imageUrl: string;
-  price: number;
+  itemName: string;
+  itemImageUrl: string;
+  itemPrice: number;
 };
 
-export type RakutenFetchedItemType = BaseItemType & {
-  itemCode: string;
-	itemUrl: string
-};
-
-export type SkippedItemType = Omit<RakutenFetchedItemType,"price" >
-
-// 登録するデータの
-export type RegistedItemType = BaseItemType & {
+export type ItemType = BaseItemType & {
   id: number;
-	itemUrl?: string
 };
 
-export type ExtendItemType = BaseItemType & {
-  listId: string;
+export type RakutenItemType = BaseItemType & {
+  itemCode: string;
+  itemUrl: string;
 };
+
+export type SelectedItemType = RakutenItemType & {
+  uuid: string;
+};
+
+export type RowRakutenItemType = {
+	Item:{
+	itemCode: string,
+	itemName: string,
+	itemPrice: number,
+	affiliateUrl: string,
+	smallImageUrls: {imageUrl:string}[]
+	}
+}

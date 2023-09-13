@@ -5,8 +5,8 @@ export const useItemList = () => {
   const [itemList, setItemList] = useState<ExtendItemType[]>([]);
 
   const addItem = (eItem: ExtendItemType) => {
+    console.log(eItem);
     itemList.push(eItem);
-    console.log(itemList);
     setItemList(itemList);
   };
 

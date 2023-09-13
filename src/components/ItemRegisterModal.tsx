@@ -1,24 +1,27 @@
 import { Box, Button, IconButton, Modal, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import React, { FC, ReactElement } from "react";
-import { ExtendItemType, RakutenFetchedItemType } from "@/types/itemType";
+import React, { FC } from "react";
+import { RakutenItemType } from "@/types/itemType";
 import { ItemListItem } from "./ItemListItem";
 
 type Props = {
+  isLoading: boolean;
   handleModalClose: () => void;
-  handleModalOpen: () => void;
   isModalOpen: boolean;
-  handleClickItem: (item: RakutenFetchedItemType) => void;
-  //children: ReactElement;
-  rakutenItems: RakutenFetchedItemType[];
+  rakutenItems: RakutenItemType[];
+  onClickSelect: (rakutenItem: RakutenItemType) => void;
 };
 
 export const ItemRegisterModal: FC<Props> = React.memo((props) => {
-  const { handleModalClose, isModalOpen, handleClickItem, rakutenItems } =
-    props;
+  const {
+    isLoading,
+    handleModalClose,
+    isModalOpen,
+    rakutenItems,
+    onClickSelect,
+  } = props;
 
-  console.log("小コンポーネントレンダリング");
-  console.log(props);
+  console.log("Modalがレンダリング");
   return (
     <Modal open={isModalOpen}>
       <Box
@@ -44,17 +47,19 @@ export const ItemRegisterModal: FC<Props> = React.memo((props) => {
           あなたがおすすめするアイテムをみんなが購入できるようにURLをシェアしてくれますか？
         </Typography>
 
-        {rakutenItems.map((item: RakutenFetchedItemType) => (
-          <Button
-            key={item.itemCode}
-            fullWidth
-            onClick={() => handleClickItem(item)}
-          >
-            <Box sx={{ width: "100%" }}>
-              <ItemListItem item={item} />
-            </Box>
-          </Button>
-        ))}
+        {isLoading
+          ? "Loading"
+          : rakutenItems.map((item: RakutenItemType) => (
+              <Button
+                key={item.itemCode}
+                onClick={() => onClickSelect(item)}
+                fullWidth
+              >
+                <Box sx={{ width: "100%" }}>
+                  <ItemListItem item={item} />
+                </Box>
+              </Button>
+            ))}
       </Box>
     </Modal>
   );

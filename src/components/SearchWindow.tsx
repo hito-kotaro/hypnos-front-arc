@@ -1,4 +1,4 @@
-import useInputText from "@/hooks/useInputText";
+import { useInputText } from "@/hooks/useInputText";
 import { Search } from "@mui/icons-material";
 import { Box, InputAdornment, TextField } from "@mui/material";
 import { FC } from "react";

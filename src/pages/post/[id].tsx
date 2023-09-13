@@ -1,4 +1,3 @@
-import AppHeader from "@/components/AppHeader";
 import { Box, IconButton } from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -6,6 +5,7 @@ import { dummyPost, posts } from "../../mockData/posts";
 import { postType } from "@/types/postType";
 import { PostDetail } from "@/components/PostDetail";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
+import { AppHeader } from "@/components/AppHeader";
 
 const Post = () => {
   const [post, setPost] = useState<postType>(dummyPost);

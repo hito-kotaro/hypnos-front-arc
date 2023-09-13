@@ -1,26 +1,26 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import Image from "next/image";
-import { FC, ReactElement, useRef } from "react";
+import { FC, useRef } from "react";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import useImage from "@/hooks/useImage";
 import { usePostRequest } from "@/hooks/usePostRequest";
-import { useInputText, useInputTextType } from "@/hooks/useInputText";
-import { useRakutenApi } from "@/axios/useRakutenApi";
+import { useInputText } from "@/hooks/useInputText";
 
 type Props = {
-  handleModalOpen: () => void;
-  itemInput: useInputTextType;
+  handleModalOpen: (keyword: string) => void;
 };
 
 export const PostForms: FC<Props> = (props) => {
-  const { handleModalOpen, itemInput } = props;
+  console.log("PostFormsがレンダリング");
+  const { handleModalOpen } = props;
+
   const handleNameInput = useInputText();
+  const itemInput = useInputText();
   const titleInput = useInputText();
   const bodyInput = useInputText();
   const inputRef = useRef(null);
   const { imageUrl, uploadToClient, clearImage } = useImage();
   const { newPost } = usePostRequest();
-	const {isLoading,  setIsLoading, instance} = useRakutenApi()
 
   const handleNewPost = () => {
     handleNameInput.clearValue();
@@ -28,16 +28,6 @@ export const PostForms: FC<Props> = (props) => {
     bodyInput.clearValue();
     clearImage();
     newPost();
-  };
-
-  const wrapHandleModalOpen = () => {
-		setIsLoading(true)
-    console.log("fetchData");
-
-    console.log("open modal");
-    handleModalOpen();
-    console.log("loading data");
-    console.log("set state");
   };
 
   return (
@@ -133,12 +123,12 @@ export const PostForms: FC<Props> = (props) => {
           />
           <Button
             disabled={itemInput.value === "" ? true : false}
-            onClick={wrapHandleModalOpen}
+            onClick={() => handleModalOpen(itemInput.value)}
             variant="contained"
             color="secondary"
             fullWidth
           >
-            アイテムを探す
+            楽天でアイテムのURLを探す
           </Button>
         </Box>
       </Box>

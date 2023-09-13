@@ -14,7 +14,7 @@ type Props = {
   post: postType;
 };
 
-const PostCardItem: FC<Props> = (props) => {
+export const PostCardItem: FC<Props> = (props) => {
   const { post } = props;
   const router = useRouter();
 
@@ -56,5 +56,3 @@ const PostCardItem: FC<Props> = (props) => {
     </Card>
   );
 };
-
-export default PostCardItem;
