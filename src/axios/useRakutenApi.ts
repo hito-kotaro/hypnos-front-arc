@@ -28,10 +28,22 @@ export const useRakutenApi = () => {
 
     rowRakutenItemList.map((i: RowRakutenItemType) => {
       const item = i.Item;
+
+      /* FIXME: 楽天側で画像のURLが設定されていないアイテムはフロント側でNoImageに差し替えられるが、
+				楽天側で画像のURLが設定されているが、そのURLが404になる場合が対応できていない 
+				無視でよい？
+			if (item.smallImageUrls.length === 0) {
+				console.log(item);
+			}
+			*/
+
       const processedrakutenItem: RakutenItemType = {
         itemCode: item.itemCode,
         itemUrl: item.affiliateUrl,
-        itemImageUrl: item.smallImageUrls[0].imageUrl,
+        itemImageUrl:
+          item.smallImageUrls.length !== 0
+            ? item.smallImageUrls[0].imageUrl
+            : "/sample2.png",
         itemName: item.itemName,
         itemPrice: item.itemPrice,
       };
@@ -43,7 +55,7 @@ export const useRakutenApi = () => {
 
   return {
     searchItem,
-		rakutenItemList,
+    rakutenItemList,
     isLoading,
     setIsLoading,
     setLoadingTrue,

@@ -1,15 +1,16 @@
-import { postType } from "@/types/postType";
+import { PostType } from "@/types/postType";
 import { Box, Typography } from "@mui/material";
 import Avatar from "boring-avatars";
 import Image from "next/image";
 import { FC } from "react";
 
 type Props = {
-  post: postType;
+  post: PostType;
 };
 
 export const PostDetail: FC<Props> = (props) => {
   const { post } = props;
+  console.log(post);
   return (
     <>
       <Box
@@ -29,10 +30,10 @@ export const PostDetail: FC<Props> = (props) => {
           component="div"
           sx={{ padding: 0, fontWeight: "bold" }}
         >
-          {post ? post.postTitle : "Untitle"}
+          {post.postTitle}
         </Typography>
         <Box sx={{ display: "flex" }}>
-          <Avatar size={40} name={post ? post.postedBy : 'Unknown'} variant="beam" />
+          <Avatar size={40} name={post.handleName} variant="beam" />
           <Typography
             gutterBottom
             variant="h6"
@@ -44,18 +45,18 @@ export const PostDetail: FC<Props> = (props) => {
               marginLeft: 2,
             }}
           >
-            {post ? post.postedBy : "Unknown"}
+            {post.handleName!}
           </Typography>
         </Box>
 
         <Box>
           <Typography variant="caption" component="p" width="100%">
-            {post ? post.createdAt : "UnDefined"}
+            {String(post.createdAt)}
           </Typography>
         </Box>
         <Box>
           <Typography variant="body1" component="p" width="100%">
-            {post ? post.postBody : "Blank"}
+            {post.postBody}
           </Typography>
         </Box>
       </Box>

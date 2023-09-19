@@ -22,8 +22,8 @@ export const ItemListItem: FC<Props> = (props) => {
       <Image
         src={item.itemImageUrl}
         alt={item.itemName}
-        width="100"
-        height="100"
+        width="64"
+        height="64"
       />
       <Box sx={{ color: "#050A30", marginLeft: 1 }}>
         <Typography sx={{ color: "#050A30" }}>{item.itemName}</Typography>

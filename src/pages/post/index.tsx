@@ -6,9 +6,12 @@ import { PostForms } from "@/components/PostForms";
 import { useModal } from "@/hooks/useModal";
 import { useSelectedItem } from "@/hooks/useSelectedItem";
 import { RakutenItemType, SelectedItemType } from "@/types/itemType";
+import { NewPostType } from "@/types/postType";
 import { Box, Button, Typography } from "@mui/material";
+import { useRouter } from "next/router";
 
 const Post = () => {
+	const router = useRouter()
   const { isOpen, handleOpen, handleClose } = useModal();
   console.log("親コンポーネントがレンダリング");
   const { rakutenItemList, isLoading, searchItem } = useRakutenApi();
@@ -30,10 +33,30 @@ const Post = () => {
     onClickSearchItem(keyword);
   };
 
+  const handleNewPost = (
+    handleName: string,
+    postTitle: string,
+    postBody: string,
+  ) => {
+    // Create S3 path
+    // and upload
+    const s3Path = "hogehoge/fugafuga/piyopiyo.png";
+    const post: NewPostType = {
+      handleName,
+      postTitle,
+      postBody,
+      postImageUrl: s3Path,
+      createdAt: new Date(),
+    };
+    console.log(post);
+		router.push('/post/1')
+  };
+
+
   return (
     <>
       <ItemRegisterModal
-				isLoading={isLoading}
+        isLoading={isLoading}
         handleModalClose={handleClose}
         isModalOpen={isOpen}
         rakutenItems={rakutenItemList}
@@ -41,7 +64,7 @@ const Post = () => {
       />
       <AppHeader />
       <Box sx={{ marginTop: 2 }}>
-        <PostForms handleModalOpen={handleModalOpen} />
+        <PostForms handleModalOpen={handleModalOpen} handleNewPost={handleNewPost} />
       </Box>
 
       <Box sx={{ marginTop: 2 }}>

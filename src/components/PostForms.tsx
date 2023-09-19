@@ -5,14 +5,20 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import useImage from "@/hooks/useImage";
 import { usePostRequest } from "@/hooks/usePostRequest";
 import { useInputText } from "@/hooks/useInputText";
+import { NewPostType } from "@/types/postType";
 
 type Props = {
   handleModalOpen: (keyword: string) => void;
+  handleNewPost: (
+    handleName: string,
+    postTitle: string,
+    postBody: string,
+  ) => void;
 };
 
 export const PostForms: FC<Props> = (props) => {
   console.log("PostFormsがレンダリング");
-  const { handleModalOpen } = props;
+  const { handleModalOpen, handleNewPost } = props;
 
   const handleNameInput = useInputText();
   const itemInput = useInputText();
@@ -20,15 +26,6 @@ export const PostForms: FC<Props> = (props) => {
   const bodyInput = useInputText();
   const inputRef = useRef(null);
   const { imageUrl, uploadToClient, clearImage } = useImage();
-  const { newPost } = usePostRequest();
-
-  const handleNewPost = () => {
-    handleNameInput.clearValue();
-    titleInput.clearValue();
-    bodyInput.clearValue();
-    clearImage();
-    newPost();
-  };
 
   return (
     <>
@@ -41,7 +38,13 @@ export const PostForms: FC<Props> = (props) => {
               ? true
               : false
           }
-          onClick={handleNewPost}
+          onClick={() =>
+            handleNewPost(
+              handleNameInput.value,
+              titleInput.value,
+              bodyInput.value,
+            )
+          }
           variant="contained"
           color="secondary"
           fullWidth

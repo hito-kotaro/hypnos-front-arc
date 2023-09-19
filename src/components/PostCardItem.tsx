@@ -1,4 +1,4 @@
-import { postType } from "@/types/postType";
+import { PostType } from "@/types/postType";
 import {
   Box,
   Card,
@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 import { FC } from "react";
 
 type Props = {
-  post: postType;
+  post: PostType;
 };
 
 export const PostCardItem: FC<Props> = (props) => {
@@ -41,7 +41,7 @@ export const PostCardItem: FC<Props> = (props) => {
               {post.postBody}
             </Typography>
             <Typography variant="caption" component="p" width="100%">
-              {`Posted by ${post.postedBy}`}
+              {`Posted by ${post.handleName}`}
             </Typography>
           </CardContent>
 
