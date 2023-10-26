@@ -3,14 +3,17 @@ COMPOSE_FILE = docker-compose.yml
 COMPOSE = docker-compose -f
 SERVICE_NAME = hypnos-front
 IMAGE_NAME = hypnos-front
+NETWORK = hypnos-nw
 
 .PHONY: up
 up:
+	docker network create $(NETWORK)
 	$(COMPOSE) $(DOCKER_DIR)/$(COMPOSE_FILE) up -d
 
 .PHONY: down
 down:
 	$(COMPOSE) $(DOCKER_DIR)/$(COMPOSE_FILE) down 
+	docker network rm $(NETWORK)
 
 .PHONY: build
 build:
