@@ -1,4 +1,4 @@
-import { PostType, RowPostType } from "@/types/postType";
+import { NewPostType, PostType, RowPostType } from "@/types/postType";
 import axios from "axios";
 import { useState } from "react";
 
@@ -20,6 +20,7 @@ export const useBackend = () => {
     setLoadingTrue();
     const result = await instance.get("posts");
     let newPostList: PostType[] = [];
+    console.log(result.data);
     result.data.map((rowPost: RowPostType) => {
       const {
         id,
@@ -47,21 +48,25 @@ export const useBackend = () => {
   const fetchPostById = async (postId: number) => {
     const result = await instance.get("posts", { params: { id: postId } });
 
-		const {id, handle_name, post_title, post_body,image_url, created_at} =  result.data[0]
+    const { id, handle_name, post_title, post_body, image_url, created_at } =
+      result.data[0];
 
-		const post: PostType ={
-			id,
-			handleName:handle_name,
-			postTitle:post_title,
-			postBody:post_body,
-			postImageUrl: image_url,
-			createdAt: created_at
-		}
-		console.log(post)
+    const post: PostType = {
+      id,
+      handleName: handle_name,
+      postTitle: post_title,
+      postBody: post_body,
+      postImageUrl: image_url,
+      createdAt: created_at,
+    };
+    console.log(post);
     setSelectedPost(post);
   };
 
-  const registerNewPost = () => {};
+  const registerNewPost = async (post: NewPostType) => {
+    const result = await instance.post("posts", post);
+    console.log(result);
+  };
 
   return {
     instance,
@@ -72,5 +77,6 @@ export const useBackend = () => {
     setLoadingFalse,
     fetchPosts,
     fetchPostById,
+    registerNewPost,
   };
 };

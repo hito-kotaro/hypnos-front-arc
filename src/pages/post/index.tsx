@@ -1,3 +1,4 @@
+import { useBackend } from "@/axios/useBackend";
 import { useRakutenApi } from "@/axios/useRakutenApi";
 import { AppHeader } from "@/components/AppHeader";
 import { ItemListItem } from "@/components/ItemListItem";
@@ -11,7 +12,8 @@ import { Box, Button, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 
 const Post = () => {
-	const router = useRouter()
+  const router = useRouter();
+  const { registerNewPost } = useBackend();
   const { isOpen, handleOpen, handleClose } = useModal();
   console.log("親コンポーネントがレンダリング");
   const { rakutenItemList, isLoading, searchItem } = useRakutenApi();
@@ -49,9 +51,9 @@ const Post = () => {
       createdAt: new Date(),
     };
     console.log(post);
-		router.push('/post/1')
+    registerNewPost(post);
+    router.push("/post/1");
   };
-
 
   return (
     <>
@@ -64,7 +66,10 @@ const Post = () => {
       />
       <AppHeader />
       <Box sx={{ marginTop: 2 }}>
-        <PostForms handleModalOpen={handleModalOpen} handleNewPost={handleNewPost} />
+        <PostForms
+          handleModalOpen={handleModalOpen}
+          handleNewPost={handleNewPost}
+        />
       </Box>
 
       <Box sx={{ marginTop: 2 }}>
