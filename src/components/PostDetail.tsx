@@ -1,3 +1,4 @@
+import { usePost } from "@/hooks/usePost";
 import { PostType } from "@/types/postType";
 import { Box, Typography } from "@mui/material";
 import Avatar from "boring-avatars";
@@ -10,7 +11,6 @@ type Props = {
 
 export const PostDetail: FC<Props> = (props) => {
   const { post } = props;
-  console.log(post);
   return (
     <>
       <Box

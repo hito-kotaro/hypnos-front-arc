@@ -8,7 +8,6 @@ const useImage = () => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
       setImage(file);
-      console.log(URL.createObjectURL(file));
       setImageUrl(URL.createObjectURL(file));
     }
   };

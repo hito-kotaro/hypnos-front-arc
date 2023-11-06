@@ -1,50 +1,64 @@
 {
   "posts": [
-		{
-			"id": 1,
-			"handle_name": "name",
-			"post_title": "どこでも寝られる枕",
-			"post_body": "いつでもどこでも眠れる",
-			"image_url": "/sample.png",
-			"created_at": "2023/01/01"
-		}
+    {
+      "id": 1,
+      "handle_name": "name",
+      "post_title": "どこでも寝られる枕",
+      "post_body": "いつでもどこでも眠れる",
+      "image_url": "/sample.png",
+      "created_at": "2023/01/01"
+    },
+    {
+      "handle_name": "dsada",
+      "post_title": "dsa",
+      "post_body": "dasdsa",
+      "image_url": "hogehoge/fugafuga/piyopiyo.png",
+      "created_at": "2023-10-29T23:45:32.103Z",
+      "id": 3
+    }
   ],
   "comments": [
-    { "id": 1, "body": "some comment", "postId": 1 }
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
   ],
-	"rakuten":[
-		{
-			"name": "楽天Item1",
-			"description": "description",
-			"imageUrl": "/sample.png",
-			"price": 1000,
-			"itemCode": "hoge",
-			"itemUrl": "http://localhost/item/1"
-		},
-		{
-			"name": "楽天Item2",
-			"description": "description",
-			"imageUrl": "/sample2.png",
-			"price": 1000,
-			"itemCode": "fuga",
-			"itemUrl": "http://localhost/item/1"
-		},
-		{
-			"name": "楽天Item3",
-			"description": "description",
-			"imageUrl": "/sample3.png",
-			"price": 1000,
-			"itemCode": "piyo",
-			"itemUrl": "http://localhost/item/1"
-		},
-		{
-			"name": "楽天Item4",
-			"description": "description",
-			"imageUrl": "/sample3.png",
-			"price": 1000,
-			"itemCode": "piyohoge",
-			"itemUrl": "http://localhost/item/1"
-		}
-	],
-  "profile": { "name": "typicode" }
+  "rakuten": [
+    {
+      "name": "楽天Item1",
+      "description": "description",
+      "imageUrl": "/sample.png",
+      "price": 1000,
+      "itemCode": "hoge",
+      "itemUrl": "http://localhost/item/1"
+    },
+    {
+      "name": "楽天Item2",
+      "description": "description",
+      "imageUrl": "/sample2.png",
+      "price": 1000,
+      "itemCode": "fuga",
+      "itemUrl": "http://localhost/item/1"
+    },
+    {
+      "name": "楽天Item3",
+      "description": "description",
+      "imageUrl": "/sample3.png",
+      "price": 1000,
+      "itemCode": "piyo",
+      "itemUrl": "http://localhost/item/1"
+    },
+    {
+      "name": "楽天Item4",
+      "description": "description",
+      "imageUrl": "/sample3.png",
+      "price": 1000,
+      "itemCode": "piyohoge",
+      "itemUrl": "http://localhost/item/1"
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
 }

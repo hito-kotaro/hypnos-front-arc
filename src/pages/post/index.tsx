@@ -1,4 +1,3 @@
-import { useBackend } from "@/axios/useBackend";
 import { useRakutenApi } from "@/axios/useRakutenApi";
 import { AppHeader } from "@/components/AppHeader";
 import { ItemListItem } from "@/components/ItemListItem";
@@ -13,9 +12,7 @@ import { useRouter } from "next/router";
 
 const Post = () => {
   const router = useRouter();
-  const { registerNewPost } = useBackend();
   const { isOpen, handleOpen, handleClose } = useModal();
-  console.log("親コンポーネントがレンダリング");
   const { rakutenItemList, isLoading, searchItem } = useRakutenApi();
   const { selectedItemList, pushSelectedItem, removeSelectedItem } =
     useSelectedItem();
@@ -23,6 +20,10 @@ const Post = () => {
   const onClickSearchItem = async (keyword: string) => {
     searchItem(keyword);
     handleOpen();
+  };
+
+  const registerNewPost = (post: NewPostType) => {
+		console.log(post)
   };
 
   const onClickSelect = (rakutenItem: RakutenItemType) => {
@@ -44,13 +45,12 @@ const Post = () => {
     // and upload
     const s3Path = "hogehoge/fugafuga/piyopiyo.png";
     const post: NewPostType = {
-      handleName,
-      postTitle,
-      postBody,
-      postImageUrl: s3Path,
-      createdAt: new Date(),
+      handle_name:handleName,
+      post_title:postTitle,
+      post_body:postBody,
+      image_url: s3Path,
+      created_at: new Date(),
     };
-    console.log(post);
     registerNewPost(post);
     router.push("/post/1");
   };

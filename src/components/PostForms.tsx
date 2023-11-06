@@ -17,7 +17,6 @@ type Props = {
 };
 
 export const PostForms: FC<Props> = (props) => {
-  console.log("PostFormsがレンダリング");
   const { handleModalOpen, handleNewPost } = props;
 
   const handleNameInput = useInputText();

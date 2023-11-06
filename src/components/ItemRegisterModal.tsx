@@ -21,7 +21,6 @@ export const ItemRegisterModal: FC<Props> = React.memo((props) => {
     onClickSelect,
   } = props;
 
-  console.log("Modalがレンダリング");
   return (
     <Modal open={isModalOpen}>
       <Box
