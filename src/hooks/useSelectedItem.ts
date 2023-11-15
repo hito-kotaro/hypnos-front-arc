@@ -1,4 +1,4 @@
-import { RakutenItemType, SelectedItemType } from "@/types/itemType";
+import { RowRakutenItemType, SelectedItemType } from "@/types/itemType";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
@@ -7,9 +7,13 @@ export const useSelectedItem = () => {
     [],
   );
 
-  const pushSelectedItem = (item: RakutenItemType) => {
+  const pushSelectedItem = (item: RowRakutenItemType) => {
     const selectedItem: SelectedItemType = {
-      ...item,
+      itemCode: item.Item.itemCode,
+      itemImageUrl: item.Item.smallImageUrls[0].imageUrl,
+      itemName: item.Item.itemName,
+      itemPrice: item.Item.itemPrice,
+      itemUrl: item.Item.affiliateUrl,
       uuid: uuidv4(),
     };
     setSelectedItemList([...selectedItemList, selectedItem]);

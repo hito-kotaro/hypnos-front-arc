@@ -5,7 +5,10 @@ import { ItemRegisterModal } from "@/components/ItemRegisterModal";
 import { PostForms } from "@/components/PostForms";
 import { useModal } from "@/hooks/useModal";
 import { useSelectedItem } from "@/hooks/useSelectedItem";
-import { RakutenItemType, SelectedItemType } from "@/types/itemType";
+import {
+  RowRakutenItemType,
+  SelectedItemType,
+} from "@/types/itemType";
 import { NewPostType } from "@/types/postType";
 import { Box, Button, Typography } from "@mui/material";
 import { useRouter } from "next/router";
@@ -18,15 +21,15 @@ const Post = () => {
     useSelectedItem();
 
   const onClickSearchItem = async (keyword: string) => {
-    searchItem(keyword);
+    //searchItem(keyword);
     handleOpen();
   };
 
   const registerNewPost = (post: NewPostType) => {
-		console.log(post)
+    console.log(post);
   };
 
-  const onClickSelect = (rakutenItem: RakutenItemType) => {
+  const onClickSelect = (rakutenItem: RowRakutenItemType) => {
     pushSelectedItem(rakutenItem);
     handleClose();
   };
@@ -45,9 +48,9 @@ const Post = () => {
     // and upload
     const s3Path = "hogehoge/fugafuga/piyopiyo.png";
     const post: NewPostType = {
-      handle_name:handleName,
-      post_title:postTitle,
-      post_body:postBody,
+      handle_name: handleName,
+      post_title: postTitle,
+      post_body: postBody,
       image_url: s3Path,
       created_at: new Date(),
     };
@@ -58,10 +61,12 @@ const Post = () => {
   return (
     <>
       <ItemRegisterModal
-        isLoading={isLoading}
+        //   isLoading={isLoading}
+				//   TODO keywordが固定値なのであとで変数に修正する
+        keyword="枕"
         handleModalClose={handleClose}
         isModalOpen={isOpen}
-        rakutenItems={rakutenItemList}
+        //rakutenItems={rakutenItemList}
         onClickSelect={onClickSelect}
       />
       <AppHeader />
@@ -89,7 +94,9 @@ const Post = () => {
                 削除
               </Button>
             </Box>
-            <ItemListItem item={selectedItem} />
+            <ItemListItem
+							// TODO ここデータ型が違う。ItemListItemは他でも使っているからオブジェクトマルっと渡すのではなくて、必要なデータに絞って渡した方が良い
+							item={selectedItem} />
           </Box>
         ))}
       </Box>

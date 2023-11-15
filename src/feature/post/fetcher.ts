@@ -1,4 +1,3 @@
-import { NewPostType } from "@/types/postType";
 import axios from "axios";
 
 export const axiosInstance = axios.create({

@@ -1,25 +1,30 @@
 import { Box, Button, IconButton, Modal, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import React, { FC } from "react";
-import { RakutenItemType } from "@/types/itemType";
+import {  RowRakutenItemType } from "@/types/itemType";
 import { ItemListItem } from "./ItemListItem";
+import { useRakutenItems } from "@/feature/rakuten/hooks/useRakutenItems";
 
 type Props = {
-  isLoading: boolean;
+  //  isLoading: boolean;
   handleModalClose: () => void;
+  keyword: string;
   isModalOpen: boolean;
-  rakutenItems: RakutenItemType[];
-  onClickSelect: (rakutenItem: RakutenItemType) => void;
+  // rakutenItems: RakutenItemType[];
+  onClickSelect: (rakutenItem: RowRakutenItemType) => void;
 };
 
 export const ItemRegisterModal: FC<Props> = React.memo((props) => {
   const {
-    isLoading,
+    //isLoading,
     handleModalClose,
+    keyword,
     isModalOpen,
-    rakutenItems,
+    //rakutenItems,
     onClickSelect,
   } = props;
+
+  const { rakutenItems, isLoading } = useRakutenItems(keyword);
 
   return (
     <Modal open={isModalOpen}>
@@ -48,9 +53,9 @@ export const ItemRegisterModal: FC<Props> = React.memo((props) => {
 
         {isLoading
           ? "Loading"
-          : rakutenItems.map((item: RakutenItemType) => (
+          : rakutenItems.Items.map((item: RowRakutenItemType) => (
               <Button
-                key={item.itemCode}
+                key={item.Item.itemCode}
                 onClick={() => onClickSelect(item)}
                 fullWidth
               >
