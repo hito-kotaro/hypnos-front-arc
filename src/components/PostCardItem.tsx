@@ -1,4 +1,5 @@
-import { PostType } from "@/types/postType";
+"use client";
+import { Post } from "@/types/post";
 import {
   Box,
   Card,
@@ -11,16 +12,21 @@ import { useRouter } from "next/router";
 import { FC } from "react";
 
 type Props = {
-  post: PostType;
+  post: Post;
 };
 
 export const PostCardItem: FC<Props> = (props) => {
   const { post } = props;
   const router = useRouter();
 
+  const onClick = () => {
+    localStorage.setItem("post_id", String(post.id));
+    router.push(`/post/${post.id}`);
+  };
+
   return (
     <Card>
-      <CardActionArea onClick={() => router.push(`/post/${post.id}`)}>
+      <CardActionArea onClick={onClick}>
         <Box
           sx={{
             display: "flex",

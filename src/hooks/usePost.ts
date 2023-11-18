@@ -1,3 +1,4 @@
+import _default from "@emotion/styled";
 import axios from "axios";
 import useSWR from "swr";
 
@@ -20,7 +21,7 @@ export const usePosts = () => {
   };
 };
 
-export const usePost = (id: number) => {
+export const usePost = (id: number | undefined) => {
   const { data, error, isLoading } = useSWR(`posts/${id}`, fetcher);
   return {
     post: data,

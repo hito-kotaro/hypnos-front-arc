@@ -5,7 +5,6 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import useImage from "@/hooks/useImage";
 import { usePostRequest } from "@/hooks/usePostRequest";
 import { useInputText } from "@/hooks/useInputText";
-import { NewPostType } from "@/types/postType";
 
 type Props = {
   handleModalOpen: (keyword: string) => void;

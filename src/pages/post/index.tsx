@@ -1,36 +1,33 @@
 import { useRakutenApi } from "@/axios/useRakutenApi";
+import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import { AppHeader } from "@/components/AppHeader";
 import { ItemListItem } from "@/components/ItemListItem";
 import { ItemRegisterModal } from "@/components/ItemRegisterModal";
 import { PostForms } from "@/components/PostForms";
 import { useModal } from "@/hooks/useModal";
 import { useSelectedItem } from "@/hooks/useSelectedItem";
-import {
-  RowRakutenItemType,
-  SelectedItemType,
-} from "@/types/itemType";
-import { NewPostType } from "@/types/postType";
-import { Box, Button, Typography } from "@mui/material";
+import { PickedRakutenItem, RakutenItem } from "@/types/item";
+import { NewPost } from "@/types/post";
+import { Box, Button, IconButton, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 
 const Post = () => {
   const router = useRouter();
   const { isOpen, handleOpen, handleClose } = useModal();
   const { rakutenItemList, isLoading, searchItem } = useRakutenApi();
-  const { selectedItemList, pushSelectedItem, removeSelectedItem } =
-    useSelectedItem();
+  const { pickedItemList, pickItem, removeItem } = useSelectedItem();
 
   const onClickSearchItem = async (keyword: string) => {
     //searchItem(keyword);
     handleOpen();
   };
 
-  const registerNewPost = (post: NewPostType) => {
+  const registerNewPost = (post: NewPost) => {
     console.log(post);
   };
 
-  const onClickSelect = (rakutenItem: RowRakutenItemType) => {
-    pushSelectedItem(rakutenItem);
+  const onClickSelect = (rakutenItem: RakutenItem) => {
+    pickItem(rakutenItem);
     handleClose();
   };
 
@@ -47,29 +44,32 @@ const Post = () => {
     // Create S3 path
     // and upload
     const s3Path = "hogehoge/fugafuga/piyopiyo.png";
-    const post: NewPostType = {
-      handle_name: handleName,
-      post_title: postTitle,
-      post_body: postBody,
-      image_url: s3Path,
-      created_at: new Date(),
+    const post: NewPost = {
+      handleName: handleName,
+      postTitle: postTitle,
+      postBody: postBody,
+      postImageUrl: s3Path,
     };
     registerNewPost(post);
+    // TODO ここ/1にpushしているが、本来はバックエンドからのレスポンスに含まれるidの値に遷移する
     router.push("/post/1");
   };
 
   return (
     <>
       <ItemRegisterModal
-        //   isLoading={isLoading}
-				//   TODO keywordが固定値なのであとで変数に修正する
+        //   TODO keywordが固定値なのであとで変数に修正する
         keyword="枕"
         handleModalClose={handleClose}
         isModalOpen={isOpen}
-        //rakutenItems={rakutenItemList}
         onClickSelect={onClickSelect}
       />
       <AppHeader />
+      <Box sx={{ marginY: 1 }}>
+        <IconButton onClick={() => router.push("/")}>
+          <KeyboardReturnIcon fontSize="large" />
+        </IconButton>
+      </Box>
       <Box sx={{ marginTop: 2 }}>
         <PostForms
           handleModalOpen={handleModalOpen}
@@ -81,22 +81,24 @@ const Post = () => {
         <Typography variant="body1" component="div" sx={{ fontWeight: "bold" }}>
           選択中のアイテム
         </Typography>
-        {selectedItemList.map((selectedItem: SelectedItemType) => (
-          <Box key={selectedItem.uuid} sx={{ marginBottom: 3 }}>
+        {pickedItemList.map((item: PickedRakutenItem) => (
+          <Box key={item.uuid} sx={{ marginBottom: 3 }}>
             <Box
               sx={{ display: "flex", justifyContent: "end", marginBottom: 1 }}
             >
               <Button
                 variant="contained"
                 color="error"
-                onClick={() => removeSelectedItem(selectedItem.uuid)}
+                onClick={() => removeItem(item.uuid)}
               >
                 削除
               </Button>
             </Box>
             <ItemListItem
-							// TODO ここデータ型が違う。ItemListItemは他でも使っているからオブジェクトマルっと渡すのではなくて、必要なデータに絞って渡した方が良い
-							item={selectedItem} />
+              itemImageUrl={item.smallImageUrls[0].imageUrl}
+              itemName={item.itemName}
+              itemPrice={item.itemPrice}
+            />
           </Box>
         ))}
       </Box>

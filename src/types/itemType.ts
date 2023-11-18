@@ -20,8 +20,8 @@ export type InsertItemType = {
 // 自前のDBから取得したアイテムの型
 export type ItemType = {
   id: number;
-	postId: number;
-	itemCode: string
+  postId: number;
+  itemCode: string;
 };
 
 export type SelectedItemType = RakutenItemType & {

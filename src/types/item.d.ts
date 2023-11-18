@@ -1,12 +1,10 @@
-import { NumberLiteralType } from "typescript";
-
 export interface RakutenItem {
   itemCode: string;
   itemName: string;
   itemPrice: number;
   affiliateUrl: string;
-  smallImageUrl: {
-    imageUrls: string;
+  smallImageUrls: {
+    imageUrl: string;
   }[];
 }
 
@@ -23,7 +21,7 @@ export interface NewItem extends BaseItem {}
 
 export interface Item extends BaseItem {
   id: number;
-  created_at: Date;
-  updated_at: Date | null;
-  deleted_at: Date | null;
+  createdAt: Date;
+  updatedAt: Date | null;
+  deletedAt: Date | null;
 }

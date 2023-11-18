@@ -1,16 +1,17 @@
 import { usePost } from "@/hooks/usePost";
-import { PostType } from "@/types/postType";
+import { Post } from "@/types/post";
 import { Box, Typography } from "@mui/material";
 import Avatar from "boring-avatars";
 import Image from "next/image";
 import { FC } from "react";
 
 type Props = {
-  post: PostType;
+  post: Post;
 };
 
 export const PostDetail: FC<Props> = (props) => {
   const { post } = props;
+	console.log(post)
   return (
     <>
       <Box

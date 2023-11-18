@@ -1,15 +1,15 @@
-import { RakutenItemType, RowRakutenItemType } from "@/types/itemType";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import { FC } from "react";
 
 type Props = {
-  item: RowRakutenItemType;
+  itemImageUrl: string;
+  itemName: string;
+  itemPrice: number;
 };
 
 export const ItemListItem: FC<Props> = (props) => {
-  const { item } = props;
-  console.log(item);
+  const { itemImageUrl, itemName, itemPrice } = props;
 
   return (
     <Box
@@ -20,15 +20,10 @@ export const ItemListItem: FC<Props> = (props) => {
         padding: 1,
       }}
     >
-      <Image
-        src={item.Item.smallImageUrls[0].imageUrl}
-        alt={item.Item.itemName}
-        width="64"
-        height="64"
-      />
+      <Image src={itemImageUrl} alt={itemName} width="64" height="64" />
       <Box sx={{ color: "#050A30", marginLeft: 1 }}>
-        <Typography sx={{ color: "#050A30" }}>{item.Item.itemName}</Typography>
-        <Typography>{`${item.Item.itemPrice}JPY`}</Typography>
+        <Typography sx={{ color: "#050A30" }}>{itemName}</Typography>
+        <Typography>{`${itemPrice}JPY`}</Typography>
       </Box>
     </Box>
   );
