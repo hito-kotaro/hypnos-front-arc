@@ -32,6 +32,8 @@ const Post = () => {
       handleOpen();
       console.log(inputEl.current.value);
       setItemName(inputEl.current.value);
+    } else {
+      setItemName("");
     }
   };
 

@@ -15,6 +15,7 @@ type Props = {
 export const ItemRegisterModal: FC<Props> = React.memo((props) => {
   const { handleModalClose, isModalOpen, onClickSelect, keyword } = props;
   const { rakutenItems, isError, isLoading } = useRakutenItems(keyword);
+  console.log(rakutenItems);
 
   return (
     <Modal open={isModalOpen}>
@@ -43,7 +44,7 @@ export const ItemRegisterModal: FC<Props> = React.memo((props) => {
 
         {isLoading
           ? "Loading"
-          : rakutenItems.Items.map((item: { Item: RakutenItem }) => (
+          : rakutenItems ? rakutenItems.Items.map((item: { Item: RakutenItem }) => (
               <Button
                 key={item.Item.itemCode}
                 onClick={() => onClickSelect(item.Item)}
@@ -57,7 +58,7 @@ export const ItemRegisterModal: FC<Props> = React.memo((props) => {
                   />
                 </Box>
               </Button>
-            ))}
+            )) : 'アイテム名を入力してください。'}
       </Box>
     </Modal>
   );

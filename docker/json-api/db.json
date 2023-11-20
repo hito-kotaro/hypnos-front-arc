@@ -23,6 +23,62 @@
       "postImageUrl": "/sample2.png",
       "createdAt": "2023-10-29T23:45:32.103Z",
       "id": 3
+    },
+    {
+      "id": 4,
+      "handleName": "name",
+      "postTitle": "どこでも寝られる枕",
+      "postBody": "いつでもどこでも眠れる",
+      "postImageUrl": "/sample.png",
+      "createdAt": "2023/01/01"
+    },
+    {
+      "id": 5,
+      "handleName": "name",
+      "postTitle": "どこでも寝られる枕",
+      "postBody": "いつでもどこでも眠れる",
+      "postImageUrl": "/sample.png",
+      "createdAt": "2023/01/01"
+    },
+    {
+      "id": 6,
+      "handleName": "name",
+      "postTitle": "どこでも寝られる枕",
+      "postBody": "いつでもどこでも眠れる",
+      "postImageUrl": "/sample.png",
+      "createdAt": "2023/01/01"
+    },
+    {
+      "id": 7,
+      "handleName": "name",
+      "postTitle": "どこでも寝られる枕",
+      "postBody": "いつでもどこでも眠れる",
+      "postImageUrl": "/sample.png",
+      "createdAt": "2023/01/01"
+    },
+    {
+      "id": 8,
+      "handleName": "name",
+      "postTitle": "どこでも寝られる枕",
+      "postBody": "いつでもどこでも眠れる",
+      "postImageUrl": "/sample.png",
+      "createdAt": "2023/01/01"
+    },
+    {
+      "id": 9,
+      "handleName": "name",
+      "postTitle": "どこでも寝られる枕",
+      "postBody": "いつでもどこでも眠れる",
+      "postImageUrl": "/sample.png",
+      "createdAt": "2023/01/01"
+    },
+    {
+      "handleName": "curl",
+      "postTitle": "curl",
+      "postBody": "curl",
+      "postImageUrl": "/sample.png",
+      "createdAt": "2023/01/01",
+      "id": 10
     }
   ],
   "profile": {
