@@ -3,11 +3,9 @@ import Image from "next/image";
 import { FC, useRef } from "react";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import useImage from "@/hooks/useImage";
-import { usePostRequest } from "@/hooks/usePostRequest";
 import { useInputText } from "@/hooks/useInputText";
 
 type Props = {
-  handleModalOpen: (keyword: string) => void;
   handleNewPost: (
     handleName: string,
     postTitle: string,
@@ -16,7 +14,7 @@ type Props = {
 };
 
 export const PostForms: FC<Props> = (props) => {
-  const { handleModalOpen, handleNewPost } = props;
+  const { handleNewPost } = props;
 
   const handleNameInput = useInputText();
   const itemInput = useInputText();
@@ -104,33 +102,6 @@ export const PostForms: FC<Props> = (props) => {
           ) : (
             ""
           )}
-        </Box>
-        <Box>
-          <Typography
-            variant="body1"
-            component="div"
-            sx={{ fontWeight: "bold" }}
-          >
-            アイテムを登録
-          </Typography>
-          <TextField
-            value={itemInput.value}
-            onChange={itemInput.handleChange}
-            focused={false}
-            size="small"
-            placeholder="アイテム名を入力"
-            fullWidth
-            sx={{ marginBottom: 1 }}
-          />
-          <Button
-            disabled={itemInput.value === "" ? true : false}
-            onClick={() => handleModalOpen(itemInput.value)}
-            variant="contained"
-            color="secondary"
-            fullWidth
-          >
-            楽天でアイテムのURLを探す
-          </Button>
         </Box>
       </Box>
     </>

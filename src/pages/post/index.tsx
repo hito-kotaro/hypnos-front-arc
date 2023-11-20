@@ -1,4 +1,3 @@
-import { useRakutenApi } from "@/axios/useRakutenApi";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import { AppHeader } from "@/components/AppHeader";
 import { ItemListItem } from "@/components/ItemListItem";
@@ -8,18 +7,32 @@ import { useModal } from "@/hooks/useModal";
 import { useSelectedItem } from "@/hooks/useSelectedItem";
 import { PickedRakutenItem, RakutenItem } from "@/types/item";
 import { NewPost } from "@/types/post";
-import { Box, Button, IconButton, Typography } from "@mui/material";
+import { Box, Button, IconButton, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/router";
+import { useRef, useState } from "react";
 
 const Post = () => {
   const router = useRouter();
   const { isOpen, handleOpen, handleClose } = useModal();
-  const { rakutenItemList, isLoading, searchItem } = useRakutenApi();
   const { pickedItemList, pickItem, removeItem } = useSelectedItem();
+
+  //  ここ、キーワードの入力は、useRefを使う(レンダリングさせない)
+  // 「検索する」ボタンをクリックした時に、useStateに確定した値を保持させてmodalに渡す
+  // modalはキーワードが""の時にはAPIにアクセスさせない
+  const [itemName, setItemName] = useState("");
+  const inputEl = useRef<HTMLInputElement>(null);
 
   const onClickSearchItem = async (keyword: string) => {
     //searchItem(keyword);
-    handleOpen();
+    // handleOpen();
+  };
+
+  const handleClick = () => {
+    if (inputEl.current) {
+      handleOpen();
+      console.log(inputEl.current.value);
+      setItemName(inputEl.current.value);
+    }
   };
 
   const registerNewPost = (post: NewPost) => {
@@ -29,11 +42,6 @@ const Post = () => {
   const onClickSelect = (rakutenItem: RakutenItem) => {
     pickItem(rakutenItem);
     handleClose();
-  };
-
-  const handleModalOpen = (keyword: string) => {
-    handleClose();
-    onClickSearchItem(keyword);
   };
 
   const handleNewPost = (
@@ -58,11 +66,10 @@ const Post = () => {
   return (
     <>
       <ItemRegisterModal
-        //   TODO keywordが固定値なのであとで変数に修正する
-        keyword="枕"
         handleModalClose={handleClose}
         isModalOpen={isOpen}
         onClickSelect={onClickSelect}
+        keyword={itemName}
       />
       <AppHeader />
       <Box sx={{ marginY: 1 }}>
@@ -71,10 +78,30 @@ const Post = () => {
         </IconButton>
       </Box>
       <Box sx={{ marginTop: 2 }}>
-        <PostForms
-          handleModalOpen={handleModalOpen}
-          handleNewPost={handleNewPost}
+        <PostForms handleNewPost={handleNewPost} />
+      </Box>
+
+      {/* ItemFormから切り出して持ってきた部分*/}
+      <Box>
+        <Typography variant="body1" component="div" sx={{ fontWeight: "bold" }}>
+          アイテムを登録
+        </Typography>
+        <TextField
+          inputRef={inputEl}
+          focused={false}
+          size="small"
+          placeholder="アイテム名を入力"
+          fullWidth
+          sx={{ marginBottom: 1 }}
         />
+        <Button
+          onClick={handleClick}
+          variant="contained"
+          color="secondary"
+          fullWidth
+        >
+          楽天でアイテムのURLを探す
+        </Button>
       </Box>
 
       <Box sx={{ marginTop: 2 }}>

@@ -1,26 +1,20 @@
 import { Box, Button, IconButton, Modal, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import React, { FC } from "react";
-import { ItemListItem } from "./ItemListItem";
-import { useRakutenItems } from "@/feature/rakuten/hooks/useRakutenItems";
 import { RakutenItem } from "@/types/item";
+import { useRakutenItems } from "@/feature/rakuten/hooks/useRakutenItems";
+import { ItemListItem } from "./ItemListItem";
 
 type Props = {
   handleModalClose: () => void;
-  keyword: string;
   isModalOpen: boolean;
   onClickSelect: (rakutenItem: RakutenItem) => void;
+  keyword: string;
 };
 
 export const ItemRegisterModal: FC<Props> = React.memo((props) => {
-  const {
-    handleModalClose,
-    keyword,
-    isModalOpen,
-    onClickSelect,
-  } = props;
-
-  const { rakutenItems, isLoading } = useRakutenItems(keyword);
+  const { handleModalClose, isModalOpen, onClickSelect, keyword } = props;
+  const { rakutenItems, isError, isLoading } = useRakutenItems(keyword);
 
   return (
     <Modal open={isModalOpen}>
@@ -56,7 +50,11 @@ export const ItemRegisterModal: FC<Props> = React.memo((props) => {
                 fullWidth
               >
                 <Box sx={{ width: "100%" }}>
-                  <ItemListItem itemImageUrl={item.Item.smallImageUrls[0].imageUrl} itemName={item.Item.itemName} itemPrice={item.Item.itemPrice}  />
+                  <ItemListItem
+                    itemImageUrl={item.Item.smallImageUrls[0].imageUrl}
+                    itemName={item.Item.itemName}
+                    itemPrice={item.Item.itemPrice}
+                  />
                 </Box>
               </Button>
             ))}
