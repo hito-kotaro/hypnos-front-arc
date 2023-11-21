@@ -10,8 +10,8 @@ import { PostDetail } from "@/components/PostDetail";
 const Post = () => {
   const router = useRouter();
 
-  // TODO ここは、パスパラメータから値を持ってくるのではなくて、LocalStorageから投稿idを持ってこよう。レンダリング時にqueryの値はundefinedになってしまうので面倒そう
   const { post, isError, isLoading } = usePost(
+    // パスパラメータからのID取得だと、レンダリング時にundefinedになってしまうのでlocalStorageを経由
     Number(localStorage.getItem("post_id")) || 0,
   );
 
