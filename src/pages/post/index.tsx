@@ -10,6 +10,7 @@ import { NewPost } from "@/types/post";
 import { Box, Button, IconButton, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
+import { registerPost } from "@/feature/post/registerPost";
 
 const Post = () => {
   const router = useRouter();
@@ -22,11 +23,6 @@ const Post = () => {
   const [itemName, setItemName] = useState("");
   const inputEl = useRef<HTMLInputElement>(null);
 
-  const onClickSearchItem = async (keyword: string) => {
-    //searchItem(keyword);
-    // handleOpen();
-  };
-
   const handleClick = () => {
     if (inputEl.current) {
       handleOpen();
@@ -37,8 +33,10 @@ const Post = () => {
     }
   };
 
-  const registerNewPost = (post: NewPost) => {
-    console.log(post);
+  // TODO こいつの中身を実装する
+  const registerNewPost = async (post: NewPost) => {
+    const newPost = await registerPost(post);
+    console.log(newPost);
   };
 
   const onClickSelect = (rakutenItem: RakutenItem) => {
@@ -46,7 +44,7 @@ const Post = () => {
     handleClose();
   };
 
-  const handleNewPost = (
+  const handleNewPost = async (
     handleName: string,
     postTitle: string,
     postBody: string,
@@ -60,9 +58,11 @@ const Post = () => {
       postBody: postBody,
       postImageUrl: s3Path,
     };
-    registerNewPost(post);
+    const newPost = await registerPost(post);
+    console.log(newPost.data.id);
+
     // TODO ここ/1にpushしているが、本来はバックエンドからのレスポンスに含まれるidの値に遷移する
-    router.push("/post/1");
+    router.push(`post/${newPost.data.id}`);
   };
 
   return (
@@ -83,7 +83,6 @@ const Post = () => {
         <PostForms handleNewPost={handleNewPost} />
       </Box>
 
-      {/* ItemFormから切り出して持ってきた部分*/}
       <Box>
         <Typography variant="body1" component="div" sx={{ fontWeight: "bold" }}>
           アイテムを登録

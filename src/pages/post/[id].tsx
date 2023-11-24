@@ -6,14 +6,11 @@ import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import { AppHeader } from "@/components/AppHeader";
 import { usePost } from "@/hooks/usePost";
 import { PostDetail } from "@/components/PostDetail";
+import { useEffect, useState } from "react";
 
 const Post = () => {
   const router = useRouter();
-
-  const { post, isError, isLoading } = usePost(
-    // パスパラメータからのID取得だと、レンダリング時にundefinedになってしまうのでlocalStorageを経由
-    Number(localStorage.getItem("post_id")) || 0,
-  );
+  const { post, isError, isLoading } = usePost(Number(router.query.id) || 0);
 
   return (
     <>
